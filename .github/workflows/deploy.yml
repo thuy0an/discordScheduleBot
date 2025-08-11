@@ -1,0 +1,33 @@
+name: Discord Bot Schedule Messages
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Chạy lúc 0:00 UTC+7 (đêm)
+    - cron: '0 7 * * *'  # Chạy lúc 7:00 UTC+7 (sáng)
+
+jobs:
+  send-message:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+
+    - name: Install Dependencies
+      run: |
+        npm install
+        npm install pm2@latest -g
+
+    - name: Create env file
+      run: |
+        echo "DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}" > .env
+        echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env
+        echo "CLIENT_ID=${{ secrets.CLIENT_ID }}" >> .env
+        echo "CHANNEL_ID=${{ secrets.CHANNEL_ID }}" >> .env
+
+    - name: Run Bot
+      run: node run-scheduled.js
