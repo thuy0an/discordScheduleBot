@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 0 * * *'  # Chạy lúc 0:00 UTC+7 (đêm)
     - cron: '0 7 * * *'  # Chạy lúc 7:00 UTC+7 (sáng)
-    
+  workflow_dispatch:
 jobs:
   send-message:
     runs-on: ubuntu-latest
