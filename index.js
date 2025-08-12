@@ -78,6 +78,22 @@ function createNightEmbed() {
 > Giờ VN ${timeString} • Hẹn gặp lại vào sáng mai`);
 }
 
+function createNoonEmbed() {
+  const vietnamTime = getVietnamTime();
+  const timeString = formatTime(vietnamTime);
+
+  return new EmbedBuilder()
+    .setColor('#00CED1')
+    .setTitle('🌤️ Giữa trưa rồi!')
+    .setDescription(`Đừng quên nghỉ ngơi một chút để nạp lại năng lượng bạn nhé! 🥗💤
+
+**Gợi ý**: Đứng dậy vươn vai hoặc đi dạo vài phút sẽ giúp bạn tỉnh táo hơn.
+**Nhắc nhẹ**: Hãy ăn trưa đúng giờ để giữ sức khoẻ và duy trì hiệu suất làm việc 💪
+
+> Giờ VN ${timeString} • Chúc bạn một buổi chiều tràn đầy năng lượng!`);
+}
+
+
 function createMorningEmbed() {
   const vietnamTime = getVietnamTime();
   const timeString = formatTime(vietnamTime);
@@ -132,8 +148,14 @@ client.once('ready', () => {
       channel.send({ embeds: [createNightEmbed()] });
     }, 24 * 60 * 60 * 1000);
   }, nightDelay);
-
-  process.exit(0);
+  // Lên lịch gửi tin nhắn trưa (12:00)
+  const noonDelay = getDelayToNextSend(12, 0);
+  setTimeout(() => {
+    channel.send({ embeds: [createNoonEmbed()] });
+    setInterval(() => {
+      channel.send({ embeds: [createNoonEmbed()] });
+    }, 24 * 60 * 60 * 1000);
+  }, noonDelay);
 });
 
 
