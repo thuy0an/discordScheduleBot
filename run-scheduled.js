@@ -114,6 +114,9 @@ try {
   }
 } catch (error) {
   console.error("Error sending message:", error);
+} finally {
+  // Đảm bảo chương trình sẽ tắt dù gửi thành công hay lỗi
+  process.exit(0);
 }
 
 
