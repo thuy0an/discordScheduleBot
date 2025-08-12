@@ -89,6 +89,8 @@ function createMorningEmbed() {
 
 client.once('ready', async () => {
   console.log(`🤖 Bot đã sẵn sàng với tên: ${client.user.tag}`);
+console.log("Giờ hiện tại UTC:", new Date().toISOString());
+console.log("Giờ hiện tại VN:", getVietnamTime().toISOString());
 
   const channel = client.channels.cache.get(process.env.CHANNEL_ID);
   if (!channel) {
