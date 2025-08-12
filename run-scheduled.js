@@ -50,6 +50,20 @@ function createNightEmbed() {
 
 > Giờ VN ${timeString} • Hẹn gặp lại vào sáng mai`);
 }
+function createNoonEmbed() {
+  const vietnamTime = getVietnamTime();
+  const timeString = formatTime(vietnamTime);
+
+  return new EmbedBuilder()
+    .setColor('#00CED1')
+    .setTitle('🌤️ Đã đến giờ nghỉ trưa!')
+    .setDescription(`Giữa ngày rồi, hãy dành chút thời gian để thư giãn và nạp lại năng lượng 💆‍♂️🍱
+
+**Gợi ý:** Ăn trưa đầy đủ, uống nước và nghỉ ngơi hợp lý.
+**Lưu ý:** Một giấc ngủ trưa ngắn giúp tăng hiệu suất buổi chiều đấy! 😴
+
+> Giờ VN ${timeString} • Chúc bạn một buổi chiều tràn đầy năng lượng!`);
+}
 
 function createMorningEmbed() {
   const vietnamTime = getVietnamTime();
@@ -85,17 +99,21 @@ client.once('ready', async () => {
 
   const vietnamTime = getVietnamTime();
   const hour = vietnamTime.getHours();
-
-  try {
-    // Gửi tin nhắn dựa vào thời gian hiện tại
-    if (hour === 7) {
-      await channel.send({ embeds: [createMorningEmbed()] });
-    } else if (hour === 0) {
-      await channel.send({ embeds: [createNightEmbed()] });
-    }
-  } catch (error) {
-    console.error("Error sending message:", error);
+console.log("Giờ:", hour);
+try {
+  if (hour === 7) {
+    await channel.send({ embeds: [createMorningEmbed()] });
+  } else if (hour === 12) {
+    await channel.send({ embeds: [createNoonEmbed()] }); // ✅ thêm logic buổi trưa
+  } else if (hour === 0) {
+    await channel.send({ embeds: [createNightEmbed()] });
+  } else {
+    console.log("⏰ Không phải giờ gửi tin nhắn. Giờ hiện tại:", hour);
   }
+} catch (error) {
+  console.error("Error sending message:", error);
+}
+
 
   // Kết thúc chương trình sau khi gửi tin nhắn
   process.exit(0);
