@@ -86,11 +86,10 @@ function createMorningEmbed() {
 
 > Giờ VN ${timeString} - Hãy uống nước rồi bắt đầu nhé`);
 }
-
 client.once('ready', async () => {
   console.log(`🤖 Bot đã sẵn sàng với tên: ${client.user.tag}`);
-console.log("Giờ hiện tại UTC:", new Date().toISOString());
-console.log("Giờ hiện tại VN:", getVietnamTime().toISOString());
+  console.log("Giờ hiện tại UTC:", new Date().toISOString());
+  console.log("Giờ hiện tại VN:", getVietnamTime().toISOString());
 
   const channel = client.channels.cache.get(process.env.CHANNEL_ID);
   if (!channel) {
@@ -101,28 +100,26 @@ console.log("Giờ hiện tại VN:", getVietnamTime().toISOString());
 
   const vietnamTime = getVietnamTime();
   const hour = vietnamTime.getHours();
-console.log("Giờ:", hour);
-try {
-  if (hour === 6 || hour === 7 || hour === 8) {
-    await channel.send({ embeds: [createMorningEmbed()] });
-  }
-  } if (hour === 11 || hour === 12 || hour === 13) {
-    await channel.send({ embeds: [createNoonEmbed()] }); // ✅ thêm logic buổi trưa
-  } else if (hour === 0 || hour === 23 || hour === 1) {
-    await channel.send({ embeds: [createNightEmbed()] });
-  } else {
-    console.log("⏰ Không phải giờ gửi tin nhắn. Giờ hiện tại:", hour);
-  }
-} catch (error) {
-  console.error("Error sending message:", error);
-} finally {
-  // Đảm bảo chương trình sẽ tắt dù gửi thành công hay lỗi
-  process.exit(0);
-}
+  console.log("Giờ:", hour);
 
-
-  // Kết thúc chương trình sau khi gửi tin nhắn
-  process.exit(0);
+  try {
+    if (hour === 6 || hour === 7 || hour === 8) {
+      await channel.send({ embeds: [createMorningEmbed()] });
+    } else if (hour === 11 || hour === 12 || hour === 13) {
+      await channel.send({ embeds: [createNoonEmbed()] });
+    } else if (hour === 0 || hour === 23 || hour === 1) {
+      await channel.send({ embeds: [createNightEmbed()] });
+    } else {
+      console.log("⏰ Không phải giờ gửi tin nhắn. Giờ hiện tại:", hour);
+    }
+  } catch (error) {
+    console.error("❌ Lỗi khi gửi tin nhắn:", error);
+  } finally {
+    process.exit(0); // Đảm bảo chương trình sẽ thoát sau khi xử lý xong
+  }
 });
+
+
+
 
 client.login(process.env.DISCORD_TOKEN);
