@@ -103,12 +103,12 @@ console.log("Giờ hiện tại VN:", getVietnamTime().toISOString());
   const hour = vietnamTime.getHours();
 console.log("Giờ:", hour);
 try {
-  if (hour >= 6 && hour <= 8) {
+  if (hour === 6 || hour === 7 || hour === 8) {
     await channel.send({ embeds: [createMorningEmbed()] });
   }
-  } else if (hour === 12) {
+  } if (hour === 11 || hour === 12 || hour === 13) {
     await channel.send({ embeds: [createNoonEmbed()] }); // ✅ thêm logic buổi trưa
-  } else if (hour === 0) {
+  } else if (hour === 0 || hour === 23 || hour === 1) {
     await channel.send({ embeds: [createNightEmbed()] });
   } else {
     console.log("⏰ Không phải giờ gửi tin nhắn. Giờ hiện tại:", hour);
