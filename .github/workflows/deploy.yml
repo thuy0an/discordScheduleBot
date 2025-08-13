@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '45 22 * * *'  # Chạy lúc 6:45 UTC+7 (đêm)
     - cron: '45 16 * * *'  # Chạy lúc 22:45 UTC+7 (sáng)
-    - cron: '10 5 * * *'     # 11:45 VN
+    - cron: '8 5 * * *'     # 11:45 VN
 jobs:
   send-message:
     runs-on: ubuntu-latest
