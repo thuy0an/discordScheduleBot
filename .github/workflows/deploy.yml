@@ -2,9 +2,9 @@ name: Discord Bot Schedule Messages
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Chạy lúc 0:00 UTC+7 (đêm)
-    - cron: '0 16 * * *'  # Chạy lúc 6:00 UTC+7 (sáng)
-    - cron: '0 5 * * *'     # 12:00 VN
+    - cron: '45 23 * * *'  # Chạy lúc 0:00 UTC+7 (đêm)
+    - cron: '45 16 * * *'  # Chạy lúc 6:00 UTC+7 (sáng)
+    - cron: '45 4 * * *'     # 12:00 VN
 jobs:
   send-message:
     runs-on: ubuntu-latest
