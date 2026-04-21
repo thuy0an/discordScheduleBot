@@ -2,9 +2,10 @@ name: Discord Bot Schedule Messages
 
 on:
   schedule:
-    - cron: '45 23 * * *'  # Chạy lúc 6:45 UTC+7 (đêm)
-    - cron: '45 16 * * *'  # Chạy lúc 22:45 UTC+7 (sáng)
-    - cron: '45 4 * * *'     # 11:45 VN
+    - cron: '0 17 * * *'   # 00:00 giờ Việt Nam
+    - cron: '0 0 * * *'    # 07:00 giờ Việt Nam
+    - cron: '0 1 * * *'    # 08:00 giờ Việt Nam, chỉ gửi vào ngày đặc biệt
+    - cron: '0 5 * * *'    # 12:00 giờ Việt Nam
 jobs:
   send-message:
     runs-on: ubuntu-latest
@@ -24,8 +25,7 @@ jobs:
 
     - name: Create env file
       run: |
-        echo "DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}" > .env
-        echo "CLIENT_ID=${{ secrets.CLIENT_ID }}" >> .env
+        echo "DISCORD_TOKEN=${{ secrets.DISCORD_BOT_KEY }}" > .env
         echo "CHANNEL_ID=${{ secrets.CHANNEL_ID }}" >> .env
 
     - name: Run Bot
