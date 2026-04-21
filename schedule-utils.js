@@ -123,17 +123,20 @@ function getVietnamDateParts(referenceDate = new Date()) {
     }
   }
 
+  // Fix hour 24 -> 0 for midnight
+  const hour = Number(values.hour) === 24 ? 0 : Number(values.hour);
+  
   return {
     weekday: values.weekday,
     weekdayLabel: WEEKDAY_LABELS[values.weekday] || values.weekday,
     year: Number(values.year),
     month: Number(values.month),
     day: Number(values.day),
-    hour: Number(values.hour),
+    hour: hour,
     minute: Number(values.minute),
     second: Number(values.second),
     dateString: `${values.year}-${values.month}-${values.day}`,
-    timeString: `${values.hour}:${values.minute}:${values.second}`
+    timeString: `${hour.toString().padStart(2, '0')}:${values.minute}:${values.second}`
   };
 }
 
