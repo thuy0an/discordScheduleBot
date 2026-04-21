@@ -1,6 +1,7 @@
 name: Discord Bot Schedule Messages
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 17 * * *'   # 00:00 giờ Việt Nam
     - cron: '0 0 * * *'    # 07:00 giờ Việt Nam
