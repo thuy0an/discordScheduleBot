@@ -26,7 +26,22 @@ jobs:
 
     - name: Create env file
       run: |
-        echo "DISCORD_TOKEN=${{ secrets.DISCORD_BOT_KEY }}" > .env
+        TOKEN="${{ secrets.DISCORD_BOT_KEY }}"
+        if [ -z "$TOKEN" ]; then
+          TOKEN="${{ secrets.DISCORD_TOKEN }}"
+        fi
+
+        if [ -z "$TOKEN" ]; then
+          echo "❌ Thiếu secret token. Hãy tạo DISCORD_BOT_KEY hoặc DISCORD_TOKEN trong GitHub Secrets."
+          exit 1
+        fi
+
+        if [ -z "${{ secrets.CHANNEL_ID }}" ]; then
+          echo "❌ Thiếu CHANNEL_ID trong GitHub Secrets."
+          exit 1
+        fi
+
+        echo "DISCORD_TOKEN=$TOKEN" > .env
         echo "CHANNEL_ID=${{ secrets.CHANNEL_ID }}" >> .env
 
     - name: Run Bot
