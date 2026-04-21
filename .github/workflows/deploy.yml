@@ -43,6 +43,10 @@ jobs:
 
         echo "DISCORD_TOKEN=$TOKEN" > .env
         echo "CHANNEL_ID=${{ secrets.CHANNEL_ID }}" >> .env
+        echo "N8N_WEBHOOK_URL=${{ secrets.N8N_WEBHOOK_URL }}" >> .env
+        echo "AI_LISTEN_CHANNEL_IDS=${{ vars.AI_LISTEN_CHANNEL_IDS }}" >> .env
+        echo "AI_REPLY_IN_THREAD=${{ vars.AI_REPLY_IN_THREAD }}" >> .env
+        echo "N8N_TIMEOUT_MS=${{ vars.N8N_TIMEOUT_MS }}" >> .env
 
     - name: Run Bot
       run: node run-scheduled.js
